@@ -9,7 +9,7 @@
 
 (authors "Lektonic")
 
-(maintainers "Maintainer Name")
+(maintainers "Lektonic")
 
 (license MIT)
 
