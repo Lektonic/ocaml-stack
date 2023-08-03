@@ -6,7 +6,12 @@ A repo that I use to learn Ocaml by making stack machines.
 
 Currently there are currently two machines.
 
-Both use a recursive "main" function.
+Both use a recursive `run` function that takes in a `int List` which is
+the list of instructions to execute.
+
+Each machine also has a fully commented code file, and a minimized file.
+The minimized files are to see how much I can strip out of the full version
+while still keeping it somewhat readable.
 
 ### The Stack Machine
 
@@ -18,6 +23,8 @@ Has 7 instructions.
 
 ### Stack Machine w/ Acc
 
+Found in `lib/StackAccMachine.ml`
+
 A Stack machine with a single register, (the Accumulator).
 
 Each of the below flavors has the same instructions and functionality.
@@ -27,18 +34,5 @@ small the code is, while trying to preserve some readability.
 
 The math operations all wind up in the Accumulator.
 
-Has 10 instructions / opcodes.
-
-#### Full Sized
-
-Found in `lib/StackAccMachine.ml`
-
-Fully documented version with a full State module.
-
-#### Minimized
-
-Found in `lib/StackAccMachine_min.ml`.
-
-Yes, I know technically it can be smaller, but my goal here was
-more to balance readability with minimalism.
+Support 14 instructions / opcodes. (The entire set defined in `lib/Opcodes.md`)
 
