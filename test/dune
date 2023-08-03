@@ -1,2 +1,3 @@
 (test
- (name stack_machine))
+ (name stack_machine)
+ (libraries lib))
