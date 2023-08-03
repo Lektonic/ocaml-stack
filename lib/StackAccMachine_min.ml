@@ -16,20 +16,20 @@ let math_op opcode (op : int -> int -> int) (i, s, a) =
   | _ -> raise (Failure "Unreachable branch")
 
 let lda (i, s, _) = Runtime (List.tl i, s, List.hd i)
-let exit (_, _, a) = Exit a
+let hlrs (_, s, _) = Exit (List.hd s)
 
 let parse_opcode (o : int) =
   match o with
-  | 0x00 -> pusha
-  | 0x01 -> pushi
-  | 0x05 -> popa
-  | 0x06 -> popi
+  | 0x00 -> pushi
+  | 0x01 -> pusha
+  | 0x05 -> popi
+  | 0x06 -> popa
   | 0x10 | 0x11 -> math_op o ( + )
   | 0x15 | 0x16 -> math_op o ( - )
   | 0x20 | 0x21 -> math_op o ( * )
   | 0x25 | 0x26 -> math_op o ( / )
   | 0x30 -> lda
-  | 0xff -> exit
+  | 0xff -> hlrs
   | _ -> raise (Failure "Unable to parse opcode")
 
 let rec run m_state =
