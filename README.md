@@ -21,18 +21,11 @@ This is a classic Stack Machine. Can do some basic math, but that's about it.
 
 Has 7 instructions.
 
-### Stack Machine w/ Acc
+### Stack Machine w/ Register
 
 Found in `lib/StackAccMachine.ml`
 
 A Stack machine with a single register, (the Accumulator).
 
-Each of the below flavors has the same instructions and functionality.
-The main difference is that the Minimized version removes comments and
-shrinks the State module to a single type. This exists so I can see how
-small the code is, while trying to preserve some readability.
-
-The math operations all wind up in the Accumulator.
-
-Support 14 instructions / opcodes. (The entire set defined in `lib/Opcodes.md`)
+Supports 14 instructions / opcodes. (The entire set defined in `lib/Opcodes.md`)
 
