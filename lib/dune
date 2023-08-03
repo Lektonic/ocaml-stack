@@ -1,0 +1,4 @@
+(library
+ (name lib)
+  (modules Opcodes StackAccMachine StackMachine StackAccMachine_min StackMachine_min)
+)
