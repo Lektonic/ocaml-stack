@@ -84,13 +84,16 @@ let parse_opcode (opcode : int) =
   | _ -> raise (Failure "Unable to parse opcode")
 
 (* Recursive run call *)
-let rec _run (m_state : State.t) =
-  match m_state with
-  | Exit a -> a
-  | Exception (_, s) -> raise (Failure s)
+let rec _run (machine_state : State.t) =
+  match machine_state with
+  | Exit exit_code -> exit_code
+  | Exception (_, error_string) -> raise (Failure error_string)
   | Runtime ((i, s, a) : State.runtime) -> (
       match i with
       | [] -> raise (Failure "Out of Instructions")
-      | o :: t -> _run (parse_opcode o (t, s, a)))
+      | current_opcode :: instructions_tail ->
+          _run (parse_opcode current_opcode (instructions_tail, s, a)))
 
-let run (inst : State.instructions) : int = _run (State.Runtime (inst, [], 0))
+(* Function to make running the machine easier. *)
+let run (instructions : State.instructions) : int =
+  _run (State.Runtime (instructions, [], 0))

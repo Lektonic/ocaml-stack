@@ -38,11 +38,16 @@ let parse_opcode (op : int) =
   | 0xff -> hlrs
   | _ -> raise (Failure "Unknown opcode")
 
-let rec run (m_state : State.t) : int =
-  match m_state with
-  | Exception (_, error) -> raise (Failure error)
-  | Exit a -> a
-  | Runtime (i, s) -> (
-      match i with
+let rec _run (machine_state : State.t) : int =
+  match machine_state with
+  | Exit exit_code -> exit_code
+  | Exception (_, error_string) -> raise (Failure error_string)
+  | Runtime (instructions, stack) -> (
+      match instructions with
       | [] -> raise (Failure "Out of Instructions")
-      | h :: t -> run (parse_opcode h (t, s)))
+      | current_opcode :: instructions_tail ->
+          _run (parse_opcode current_opcode (instructions_tail, stack)))
+
+(* Function to make running the machine easier. *)
+let run (instructions : State.instructions) : int =
+  _run (State.Runtime (instructions, []))
