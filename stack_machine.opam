@@ -3,7 +3,7 @@ opam-version: "2.0"
 synopsis: "A few stack machines to learn Ocaml"
 description:
   "This packages is purely for my own use. It's being used for me to learn Ocaml."
-maintainer: ["Maintainer Name"]
+maintainer: ["Lektonic"]
 authors: ["Lektonic"]
 license: "MIT"
 tags: ["stack machine" "stack"]
