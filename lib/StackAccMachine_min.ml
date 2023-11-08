@@ -39,4 +39,4 @@ let rec run m_state =
   | Runtime (i, s, a) -> (
       match i with
       | [] -> raise (Failure "Out of Instructions")
-      | o :: t -> run (parse_opcode o (t, s, a)))
+      | o :: t -> run ((parse_opcode o) (t, s, a)))

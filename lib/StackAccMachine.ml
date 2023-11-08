@@ -46,13 +46,11 @@ let math_acc_op operation (instructions, stack, accumulator) =
 
 (* Decides if this is a stack or accumulator operation
     Returns one of the math op functions with the operation argument filled.
-    Run function will then provide the state argument and finish the function call.
 *)
-let do_math opcode operation (*state*) =
-  (* BEWARE: Functional Black Magic Ahead *)
+let do_math opcode operation =
   match opcode mod 2 with
-  | 0 -> math_stack_op operation (* state *)
-  | 1 -> math_acc_op operation (* state *)
+  | 0 -> math_stack_op operation
+  | 1 -> math_acc_op operation
   | _ -> raise (Failure "Reached Unreachable branch.")
 
 (* LDA - 0x30 : Load Accumulator
@@ -73,12 +71,10 @@ let parse_opcode (opcode : int) =
   | 0x01 -> pusha
   | 0x05 -> popi
   | 0x06 -> popa
-  (* BEGIN Functional Magic *)
   | 0x10 | 0x11 -> do_math opcode ( + )
   | 0x15 | 0x16 -> do_math opcode ( - )
   | 0x20 | 0x21 -> do_math opcode ( * )
   | 0x25 | 0x26 -> do_math opcode ( / )
-  (* END Functional Magic*)
   | 0x30 -> lda
   | 0xff -> hlrs
   | _ -> raise (Failure "Unable to parse opcode")
@@ -92,7 +88,7 @@ let rec _run (machine_state : State.t) =
       match i with
       | [] -> raise (Failure "Out of Instructions")
       | current_opcode :: instructions_tail ->
-          _run (parse_opcode current_opcode (instructions_tail, s, a)))
+          _run ((parse_opcode current_opcode) (instructions_tail, s, a)))
 
 (* Function to make running the machine easier. *)
 let run (instructions : State.instructions) : int =

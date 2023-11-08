@@ -46,7 +46,7 @@ let rec _run (machine_state : State.t) : int =
       match instructions with
       | [] -> raise (Failure "Out of Instructions")
       | current_opcode :: instructions_tail ->
-          _run (parse_opcode current_opcode (instructions_tail, stack)))
+          _run ((parse_opcode current_opcode) (instructions_tail, stack)))
 
 (* Function to make running the machine easier. *)
 let run (instructions : State.instructions) : int =
